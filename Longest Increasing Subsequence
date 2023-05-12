@@ -1,0 +1,35 @@
+int fun(int arr[],int n,int maxEle_index,int i,int** output){
+    if (i==n)
+    {
+        return 0;
+    }
+    int a = 0;
+    if(output[i][maxEle_index+1]!=-1){
+        return output[i][maxEle_index+1];
+    }
+    int b = fun(arr,n,maxEle_index,i+1,output);
+
+    if (maxEle_index==-1 || arr[i]>arr[maxEle_index])
+    {
+        a = fun(arr,n,i,i+1,output)+1;
+        output[i][maxEle_index+1] = max(a,b);
+        
+    }
+    return max(a,b);
+}
+
+int main(){
+    int n = 6;
+    int** output = new int*[n];
+    for (int i = 0; i < n; i++)
+    {
+        output[i] = new int[n];
+        for (int j = 0; j < n; j++)
+        {
+            output[i][j] = -1;
+        }
+        
+    }
+    int arr[6] = {0,1,0,3,2,3};
+    cout<<fun(arr,n,-1,0,output);
+}
